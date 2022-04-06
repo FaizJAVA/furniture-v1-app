@@ -15,5 +15,7 @@ const upload=multer({storage:storage});
 const userRouter=express.Router();
 
 userRouter.post('/signup',upload.single('uimage'),userControl.SignUp);
+userRouter.post('/signin',userControl.SignIn);
+userRouter.get('/view',userControl.View);
 
 module.exports=userRouter;
