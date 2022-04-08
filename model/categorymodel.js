@@ -5,4 +5,4 @@ const categorySchema=new mongoose.Schema({
     catImage:{type:String,required:true,trim:true}
 });
 
-module.exports=mongoose.model('category',adminSchema);
+module.exports=mongoose.model('category',categorySchema);

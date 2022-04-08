@@ -7,8 +7,12 @@ const productSchema=new mongoose.Schema({
     pDescription:{type:String,required:true,trim:true},
     pKeyword:{type:String, required:true},
     pDiscount:{type:Number,trim:true},
-    pEmiCheck:{type:Boolean,default:false},
-    catId:{type:schema.Types.ObjectId,ref:''}
+    catId:{type:schema.Types.ObjectId,ref:'category'},
+    pComment:[{
+        text:{type:String},
+        userId:Types.Schema.ObjectId,
+        ref:"user"
+    }]
 });
 
 module.exports=mongoose.model('product',adminSchema);

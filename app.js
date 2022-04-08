@@ -2,6 +2,9 @@ const express=require('express');
 const mongoose=require('mongoose');
 const bodyparser=require('body-parser');
 const userRouter=require('./route/userroute');
+const adminRouter=require('./route/adminroute');
+const categoryRouter=require('./route/categoryroute');
+const productRouter=require('./route/productroute');
 const path=require('path');
 
 const port=process.env.PORT|| 3000;
@@ -17,6 +20,9 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname,'public')));
 app.use('/api/user/',userRouter);
+app.use('/api/admin/',adminRouter);
+app.use('/api/category/',categoryRouter);
+app.use('/api/product/',productRouter);
 
 app.listen(port,()=>{
     console.log('server running');
