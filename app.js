@@ -5,6 +5,7 @@ const userRouter=require('./route/userroute');
 const adminRouter=require('./route/adminroute');
 const categoryRouter=require('./route/categoryroute');
 const productRouter=require('./route/productroute');
+const queryRouter=require('./route/queryroute');
 const path=require('path');
 
 const port=process.env.PORT|| 3000;
@@ -23,6 +24,7 @@ app.use('/api/user/',userRouter);
 app.use('/api/admin/',adminRouter);
 app.use('/api/category/',categoryRouter);
 app.use('/api/product/',productRouter);
+app.use('/api/query/',queryRouter);
 
 app.listen(port,()=>{
     console.log('server running');
