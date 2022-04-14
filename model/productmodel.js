@@ -14,5 +14,4 @@ const productSchema=new mongoose.Schema({
         ref:"user"
     }]
 });
-
 module.exports=mongoose.model('product',adminSchema);
