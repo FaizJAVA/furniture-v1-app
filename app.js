@@ -6,6 +6,8 @@ const adminRouter=require('./route/adminroute');
 const categoryRouter=require('./route/categoryroute');
 const productRouter=require('./route/productroute');
 const queryRouter=require('./route/queryroute');
+const cartRouteImport=require('./route/cartroute');
+const favouriteRouteImport=require('./route/favouriteroute');
 const path=require('path');
 
 const port=process.env.PORT|| 3000;
@@ -25,6 +27,8 @@ app.use('/api/admin/',adminRouter);
 app.use('/api/category/',categoryRouter);
 app.use('/api/product/',productRouter);
 app.use('/api/query/',queryRouter);
+app.use('/api/cart/',cartRouteImport);
+app.use('/api/favourite/',favouriteRouteImport);
 
 app.listen(port,()=>{
     console.log('server running');
