@@ -6,9 +6,7 @@ const userSchema=new mongoose.Schema({
     umobile:{type:Number,trim:true,unique:true,required:true},
     upassword:{type:String,required:true,trim:true,unique:true},
     uimage:{type:String,required:true,trim:true},
-    isBlock:{type:Boolean,default:false},
-    uEmiStatus:{type:Boolean,default:false},
-    uEmiCalc:{type:Number}
+    isBlock:{type:Boolean,default:false}
 });
 
 module.exports=mongoose.model('user',userSchema);

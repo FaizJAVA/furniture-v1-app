@@ -1,0 +1,1 @@
+const Emi=require('../model/emimodel');

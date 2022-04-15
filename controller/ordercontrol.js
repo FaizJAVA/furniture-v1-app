@@ -23,7 +23,7 @@ exports.orderPlace=(request,response)=>{
 };
 
 exports.viewOrders=(request,response)=>{
-    Order.find().populate("productId")
+    Order.find().populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
     })
@@ -36,7 +36,7 @@ exports.viewOrders=(request,response)=>{
 //particular user orders History
 exports.userOrderHistory=(request,response)=>{
     Order.find({orderStatus:"delivered",userId:request.params.id})
-    .populate("productId")
+    .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
     })
@@ -48,7 +48,7 @@ exports.userOrderHistory=(request,response)=>{
 //particular user orders Track
 exports.userOrderTrack=(request,response)=>{
     Order.find({orderStatus:"ordered",userId:request.params.id})
-    .populate("productId")
+    .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
     })
@@ -60,7 +60,7 @@ exports.userOrderTrack=(request,response)=>{
 //all orders for admin
 exports.allOrders=(request,response)=>{
     Order.find({orderStatus:"ordered"})
-    .populate("productId")
+    .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
     })
@@ -72,7 +72,7 @@ exports.allOrders=(request,response)=>{
 //all orders history for admin 
 exports.allOrdersHistory=(request,response)=>{
     Order.find({orderStatus:"delivered"})
-    .populate("productId")
+    .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
     })

@@ -9,6 +9,7 @@ const queryRouter=require('./route/queryroute');
 const cartRouteImport=require('./route/cartroute');
 const favouriteRouteImport=require('./route/favouriteroute');
 const orderRouter=require('./route/orderroute');
+const emiRouter=require('./route/emiroute');
 const path=require('path');
 
 const port=process.env.PORT|| 3000;
@@ -31,6 +32,7 @@ app.use('/api/query/',queryRouter);
 app.use('/api/cart/',cartRouteImport);
 app.use('/api/favourite/',favouriteRouteImport);
 app.use('/api/order/',orderRouter);
+app.use("/api/emi/",emiRouter);
 
 app.listen(port,()=>{
     console.log('server running');
