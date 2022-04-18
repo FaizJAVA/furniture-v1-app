@@ -20,6 +20,8 @@ mongoose.connect('mongodb+srv://Faizaankhan:faiz123@furniture-v1-app-cluste.xufk
 });
 
 const app=express();
+const cors=require('cors');
+app.use(cors());
 
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
