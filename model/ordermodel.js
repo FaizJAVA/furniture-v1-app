@@ -12,6 +12,8 @@ const orderSchema=new mongoose.Schema({
     orderQuantity:{type:Number,required:true},
     totalAmount:{type:Number,require:true},
     orderDate:{type:Date,required:true,trim:true},
-    deliveryDate:{type:Date,required:true,trim:true},
-    orderStatus:{type:String,required:true}
+    orderStatus:{type:String,required:true},
+    orderPayment:{type:String,required:true}
 });
+
+module.exports =mongoose.model('order',orderSchema);;
