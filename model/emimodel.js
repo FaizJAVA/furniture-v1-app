@@ -6,9 +6,18 @@ const emiSchema=new mongoose.Schema({
         type:Schema.Types.ObjectId,
         ref:'user'
     },
-    productId:[
-        {}
-    ]
+    products:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:"product"
+        }
+    ],
+    emiInstallment:{type:Number},
+    emiMonth:{type:Number,default:0},
+    emiIntrest:{type:Number},
+    emiTotal:{type:Number,default:0},
+    emiDownPayment:{type:Number,required:true},
+    emiRemaining:{type:Number}
 });
 
 module.exports=mongoose.model("emi",emiSchema);

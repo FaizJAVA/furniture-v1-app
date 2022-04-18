@@ -12,7 +12,8 @@ exports.orderPlace=(request,response)=>{
         orderQuantity:request.body.orderQuantity,
         totalAmount:request.body.totalAmount,
         orderDate:date,
-        orderStatus:"ordered"
+        orderStatus:"ordered",
+        orderPayment: request.body.orderPayment
     })  
     .then(result=>{
         return response.status(200).json(result);
