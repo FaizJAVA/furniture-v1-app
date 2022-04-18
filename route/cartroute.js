@@ -1,6 +1,6 @@
 const express=require('express');
 const cartRoute=express.Router();
-const cartControl=require('../controller/favouritecontrol');
+const cartControl=require('../controller/cartcontrol');
 
 cartRoute.post('/add',cartControl.Add);
 cartRoute.get('/delete',cartControl.Delete);

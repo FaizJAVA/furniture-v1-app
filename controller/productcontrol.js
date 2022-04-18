@@ -66,3 +66,33 @@ exports.editProduct=(request,response)=>{
         return response.status(500).json(err);
     });
 };
+
+exports.Comment=async (request,response)=>{
+    let a=request.body.uId;
+    let b=request.body.text;
+    let c=request.body.pId;
+
+    let comment=await product.findOne({_id:c});
+
+    comment.pack_comment.push({user:a},{text:b});
+
+    comment.save().then(result=>{   
+        return response.status(200).json(result);
+    }).catch(err=>{
+        console.log(err);
+        return response.status(500).json(err);
+    })
+}
+
+exports.RemoveComment=(request,response)=>{
+    let a=request.body.pId;
+    let b=request.body.uId;
+    let c=request.body.textId;
+
+    product.updateOne({_id:a},{$pullAll:[{pack_comment:{user:{_id:b},text:{_id:c}}}]}).then(result=>{
+        return response.status(200).json(result);
+    }).catch(err=>{
+        console.log(err);
+        return response.status(500).json(err);
+    });
+}

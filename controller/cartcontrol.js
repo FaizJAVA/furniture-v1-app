@@ -1,9 +1,9 @@
 const cartM=require('../model/cartmodel');
 
-exports.Add=(request,response)=>{
+exports.Add=async (request,response)=>{
     let uid=request.body.uId;
     let pid=request.body.pId;
-    const cart=cartM.findOne({userId:uid});
+    let cart=await cartM.findOne({userId:uid});
 
     if(!cart){
         cart=new cartM();
@@ -14,15 +14,17 @@ exports.Add=(request,response)=>{
     cart.save().then(result=>{
         return response.status(201).json(result);
     }).catch(err=>{
+        console.log(err);
         return response.status(500).json({error:'Not added to cart'});
     });
 }
 
 exports.View=(request,response)=>{
     let a=request.body.uId;
-    cartM.findOne({uesrId:a}).populate('productId').then(result=>{
+    cartM.findOne({uesrId:a}).populate('productId').populate('userId').then(result=>{
         return response.status(200).json(result);
     }).catch(error=>{
+        console.log(error)
         return response.status(500).json({error:'Not fetched'});
     });
 }
