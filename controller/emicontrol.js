@@ -82,12 +82,8 @@ exports.userEmi=(request,response)=>{
 };
 
 exports.emiUpdate=(request,response)=>{
-
     Emi.findOne({userId:request.params.id})
     .then(result=>{
-        console.log(result);
-        console.log(result.emiMonth-1);
-        console.log(result.emiRemaining-result.emiInstallment);
         Emi.updateOne({userId:request.params.id},
             {
                 $set:
