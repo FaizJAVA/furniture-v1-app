@@ -25,6 +25,7 @@ exports.SignUp=(request,response)=>{
 exports.SignIn=(request,response)=>{
     let a=request.body.email;
     let b=request.body.password;
+    const error=validationResult(request);
     if(!error.isEmpty()){
         return response.status(403).json({error:error.array()});
     }
