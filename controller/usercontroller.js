@@ -1,5 +1,6 @@
 const userM=require('../model/usermodel');
 const {validationResult}=require('express-validator');
+const jwt=require('jsonwebtoken');
 
 exports.SignUp=(request,response)=>{
     let a=request.body.uname;
@@ -28,7 +29,12 @@ exports.SignIn=(request,response)=>{
         return response.status(403).json({error:error.array()});
     }
     userM.findOne({email:a,password:b}).then(result=>{
-        return response.status(200).json(result);
+        const payload={subject:result._id};
+        const token=jwt.sign(payload,'jdshhfdvjksndfs');
+        return response.status(200).json({
+            result:result,
+            token:token
+        });
     }).catch(err=>{
         console.log(err);
         return response.status(500).json({error:'Not a valid user'});
