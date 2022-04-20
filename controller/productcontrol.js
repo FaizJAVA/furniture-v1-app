@@ -96,3 +96,12 @@ exports.RemoveComment=(request,response)=>{
         return response.status(500).json(err);
     });
 }
+exports.getProduct=(request,response)=>{
+    product.find({_id:request.params.id})
+    .then(result=>{
+        return response.status(200).json(result);
+    })
+    .catch(err=>{
+        return response.status(500).json(err);
+    });
+};
