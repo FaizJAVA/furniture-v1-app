@@ -5,7 +5,7 @@ const { Storage } = require('@google-cloud/storage');
 let bucketName = "gs://furniture-app-7e485.appspot.com"
 
 const storage = new Storage({
-    keyFilename: "G:/InfoBeans Foundation/JAVASCRIPT-PROGRAMMING/ANGULAR PROJECT/furniture-e-commerce/furniture-app-7e485-firebase-adminsdk-rtlvc-429782fb04.json"
+    keyFilename: "serviceaccountkey.json"
 });
 
 const uploadFile = async (filename) => {
@@ -53,7 +53,7 @@ exports.Add = (request, response) => {
 
 exports.View = (request, response) => {
 
-    adminM.find().then(result => {
+    categoryM.find().then(result => {
         return response.status(200).json(result);
 
     }).catch(err => {
@@ -63,7 +63,7 @@ exports.View = (request, response) => {
 
 exports.Update = (request, response) => {
 
-    adminM.Update().then(result => {
+    categoryM.Update().then(result => {
         return response.status(200).json(result);
 
     }).catch(err => {
