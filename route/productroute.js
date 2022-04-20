@@ -16,6 +16,7 @@ productRouter.post('/add',upload.single("pImage"),productControl.add);
 productRouter.get('/view',productControl.viewProducts);
 productRouter.get('/delete/:id',productControl.deleteProduct);
 productRouter.post('/edit',upload.single("pImage"),productControl.editProduct);
+productRouter.get('/getproduct/:id',productControl.getProduct);
 
 module.exports=productRouter;
 
