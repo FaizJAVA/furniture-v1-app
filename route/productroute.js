@@ -16,12 +16,9 @@ productRouter.post('/add',upload.single("pImage"),productControl.add);
 productRouter.get('/view',productControl.viewProducts);
 productRouter.get('/delete/:id',productControl.deleteProduct);
 productRouter.post('/edit',upload.single("pImage"),productControl.editProduct);
-<<<<<<< HEAD
 productRouter.get('/comment',productControl.Comment);
 productRouter.get('/removecomment',productControl.RemoveComment);
-=======
 productRouter.get('/getproduct/:id',productControl.getProduct);
->>>>>>> a140f2dad10835dca2261fceeb7f6173cc7b0444
 
 module.exports=productRouter;
 
