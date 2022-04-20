@@ -4,7 +4,7 @@ const product=require('../model/productmodel');
 
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage({
-    keyFilename: "G:/InfoBeans Foundation/JAVASCRIPT-PROGRAMMING/ANGULAR PROJECT/furniture-e-commerce/furniture-app-7e485-firebase-adminsdk-rtlvc-429782fb04.json"
+    keyFilename: "serviceaccountkey.json"
  });
 
 let bucketName = "gs://furniture-app-7e485.appspot.com"
