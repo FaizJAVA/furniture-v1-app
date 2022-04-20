@@ -1,40 +1,72 @@
-const categoryM=require('../model/categorymodel');
-const {validationResult}=require('express-validator');
+const categoryM = require('../model/categorymodel');
+const path=require('path');
+const { validationResult } = require('express-validator');
+const { Storage } = require('@google-cloud/storage');
+let bucketName = "gs://furniture-app-7e485.appspot.com"
 
-exports.Add=(request,response)=>{
-    let a=request.body.name;
-    let b='http://localhost:3000/images/'+request.file.filename;
+const storage = new Storage({
+    keyFilename: "G:/InfoBeans Foundation/JAVASCRIPT-PROGRAMMING/ANGULAR PROJECT/furniture-e-commerce/furniture-app-7e485-firebase-adminsdk-rtlvc-429782fb04.json"
+});
 
-    const error=validationResult(request);
+const uploadFile = async (filename) => {
 
-    if(!error.isEmpty()){
-        return response.status(200).json({error:error.array()});
+    await storage.bucket(bucketName).upload(filename, {
+        gzip: true,
+        metadata: {
+            metadata:{
+                firebaseStorageDownloadTokens:"good"
+            }
+        },
+    });
+
+    console.log(`${filename} uploaded to ${bucketName}.`);
+}
+
+exports.Add = (request, response) => {
+
+    
+    let a = request.body.name;
+
+    const error = validationResult(request);
+
+    if (!error.isEmpty()) {
+        return response.status(200).json({ error: error.array() });
     }
 
-    categoryM.create({catName:a,catImage:b}).then(result=>{
+    categoryM.create({ 
+        
+        catName: a,
+        
+        catImage: "https://firebasestorage.googleapis.com/v0/b/furniture-app-7e485.appspot.com/o/"+request.file.filename+"?alt=media&token=good"
+    
+    
+    }).then(result => {
+        uploadFile(
+            path.join(__dirname,"../","public/images/")+request.file.filename
+        );
         return response.status(201).json(result);
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
-        return response.status(500).json({error:'Cannot added'});
+        return response.status(500).json({ error: 'Cannot added' });
     });
 }
 
-exports.View=(request,response)=>{
-    
-    adminM.find().then(result=>{
+exports.View = (request, response) => {
+
+    adminM.find().then(result => {
         return response.status(200).json(result);
-        
-    }).catch(err=>{
-        return response.status(500).json({error:err});
+
+    }).catch(err => {
+        return response.status(500).json({ error: err });
     });
 }
 
-exports.Update=(request,response)=>{
-    
-    adminM.Update().then(result=>{
+exports.Update = (request, response) => {
+
+    adminM.Update().then(result => {
         return response.status(200).json(result);
-        
-    }).catch(err=>{
-        return response.status(500).json({error:err});
+
+    }).catch(err => {
+        return response.status(500).json({ error: err });
     });
 }

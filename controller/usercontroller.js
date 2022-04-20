@@ -6,7 +6,6 @@ exports.SignUp=(request,response)=>{
     let a=request.body.uname;
     let b=request.body.uemail;
     let c=request.body.upassword;
-    let d='http://localhost:3000/images/'+request.file.filename;
 
     const error=validationResult(request);
 
@@ -14,7 +13,7 @@ exports.SignUp=(request,response)=>{
         return response.status(403).json({error:error.array()});
     }
 
-    userM.create({uname:a,uemail:b,upassword:c,uimage:d}).then(result=>{
+    userM.create({uname:a,uemail:b,upassword:c}).then(result=>{
         return response.status(201).json(result);
     }).catch(err=>{
         console.log(err);
@@ -63,9 +62,8 @@ exports.Update=(request,response)=>{
     let a=request.body.name;
     let b=request.body.email;
     let c=request.body.password;
-    let d='http://localhost:3000/images/'+request.file.filename;
 
-    userM.updateOne({_id:request.body.uid},{$set:{uname:a,uemail:b,upassword:c,uimage:d}}).then(result=>{
+    userM.updateOne({_id:request.body.uid},{$set:{uname:a,uemail:b,upassword:c}}).then(result=>{
         return response.status(200).json(result);
     }).catch(err=>{
         console.log(err);

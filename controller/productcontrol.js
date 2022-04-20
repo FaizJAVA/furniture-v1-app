@@ -2,6 +2,29 @@ const productM=require('../model/productmodel');
 const {validationResult}=require('express-validator');
 const product=require('../model/productmodel');
 
+const {Storage} = require('@google-cloud/storage');
+const storage = new Storage({
+    keyFilename: "G:/InfoBeans Foundation/JAVASCRIPT-PROGRAMMING/ANGULAR PROJECT/furniture-e-commerce/furniture-app-7e485-firebase-adminsdk-rtlvc-429782fb04.json"
+ });
+
+let bucketName = "gs://furniture-app-7e485.appspot.com"
+
+let filename = 'download.jpg';
+
+const uploadFile = async() => {
+
+    await storage.bucket(bucketName).upload(filename, {
+        gzip: true,
+        metadata: {
+            cacheControl: 'public, max-age=31536000',
+        },
+});
+
+console.log(`${filename} uploaded to ${bucketName}.`);
+}
+
+uploadFile();
+
 exports.add=(request,response)=>{
     product.create({
         pName: request.body.pName,
