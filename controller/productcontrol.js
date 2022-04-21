@@ -2,34 +2,31 @@ const productM=require('../model/productmodel');
 const {validationResult}=require('express-validator');
 const product=require('../model/productmodel');
 
-const {Storage} = require('@google-cloud/storage');
-const storage = new Storage({
-    keyFilename: "serviceaccountkey.json"
- });
-
+const { Storage } = require('@google-cloud/storage');
 let bucketName = "gs://furniture-app-7e485.appspot.com"
 
-let filename = 'download.jpg';
+const storage = new Storage({
+    keyFilename: "serviceaccountkey.json"
+});
 
-const uploadFile = async() => {
+const uploadFile = async (filename) => {
 
     await storage.bucket(bucketName).upload(filename, {
         gzip: true,
         metadata: {
-            cacheControl: 'public, max-age=31536000',
+            metadata:{
+                firebaseStorageDownloadTokens:"good"
+            }
         },
-});
+    });
 
-console.log(`${filename} uploaded to ${bucketName}.`);
+    console.log(`${filename} uploaded to ${bucketName}.`);
 }
-
-uploadFile();
-
 exports.add=(request,response)=>{
     product.create({
         pName: request.body.pName,
         pPrice: request.body.pPrice*1,
-        pImage: "http://localhost:3000/images/"+request.file.filename,        
+        pImage: "https://firebasestorage.googleapis.com/v0/b/furniture-app-7e485.appspot.com/o/"+request.file.filename+"?alt=media&token=good",        
         pDescription: request.body.pDescription,
         pKeyword: true,
         pDiscount: request.body.pDiscount*1,
@@ -38,6 +35,9 @@ exports.add=(request,response)=>{
         catId: request.body.catId
     })
     .then((result) => {
+        uploadFile(
+            path.join(__dirname,"../","public/images/")+request.file.filename
+        );
         return response.status(200).json(result);
     })
     .catch((err) => {

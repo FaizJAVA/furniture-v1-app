@@ -63,7 +63,16 @@ exports.View = (request, response) => {
 
 exports.Update = (request, response) => {
 
-    categoryM.Update().then(result => {
+    categoryM.updateOne({_id:request.body.id},{catName:request.body.name}).then(result => {
+        return response.status(200).json(result);
+
+    }).catch(err => {
+        return response.status(500).json({ error: err });
+    });
+}
+exports.Delete = (request, response) => {
+
+    categoryM.deleteOne({_id:request.body.id}).then(result => {
         return response.status(200).json(result);
 
     }).catch(err => {
