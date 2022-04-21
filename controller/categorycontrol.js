@@ -72,7 +72,7 @@ exports.Update = (request, response) => {
 }
 exports.Delete = (request, response) => {
 
-    categoryM.deleteOne({_id:request.body.id}).then(result => {
+    categoryM.deleteOne({_id:request.params.id}).then(result => {
         return response.status(200).json(result);
 
     }).catch(err => {

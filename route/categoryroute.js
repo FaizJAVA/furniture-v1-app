@@ -17,5 +17,6 @@ const upload=multer({storage:storage});
 categoryRouter.post('/add',upload.single('image'),body('name').not().isEmpty(),categoryControl.Add);
 categoryRouter.post('/update',categoryControl.Update);
 categoryRouter.get('/view',categoryControl.View);
+categoryRouter.get('/delete/:id',categoryControl.Delete);
 
 module.exports=categoryRouter;
