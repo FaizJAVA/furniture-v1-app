@@ -1,5 +1,6 @@
 const adminM=require('../model/adminmodel');
 const {validationResult}=require('express-validator');
+const jwt=require('jsonwebtoken');
 
 exports.SignUp=(request,response)=>{
     let a=request.body.email;
@@ -22,14 +23,21 @@ exports.SignUp=(request,response)=>{
 exports.SignIn=(request,response)=>{
     let a=request.body.email;
     let b=request.body.password;
+    
     const error=validationResult(request);
 
     if(!error.isEmpty()){
         return response.status(200).json({error:error.array()});
     }
     adminM.findOne({aEmail:a,aPassword:b}).then(result=>{
+        const payload={subject:result._id};
+        const token=jwt.sign(payload,'sjdhsjfbddbfhdh');
         if(result){
-            return response.status(200).json(result);
+            return response.status(200).json(
+                {result:result,
+                token:token
+                }
+            );
         }
         else{
             return response.status(200).json({error:err,message:'Not Valid Admin'});
