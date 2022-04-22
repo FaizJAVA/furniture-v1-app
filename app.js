@@ -11,8 +11,8 @@ const favouriteRouteImport=require('./route/favouriteroute');
 const orderRouter=require('./route/orderroute');
 const emiRouter=require('./route/emiroute');
 const path=require('path');
-const app=express();
 const cors=require('cors');
+const app=express();
 app.use(cors());
 
 const port=process.env.PORT|| 3000;
@@ -21,9 +21,6 @@ mongoose.connect('mongodb+srv://Faizaankhan:faiz123@furniture-v1-app-cluste.xufk
 }).catch(err=>{
     console.log(err);
 });
-
-
-
 
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());

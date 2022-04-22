@@ -1,4 +1,4 @@
-const userM=require('../model/usermodel');
+const userM=require('../model/usernew');
 const {validationResult}=require('express-validator');
 const jwt=require('jsonwebtoken');
 

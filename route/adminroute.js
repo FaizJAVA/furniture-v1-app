@@ -9,6 +9,4 @@ adminRouter.get('/view',adminControl.view);
 adminRouter.get('/delete',body('id').not().isEmpty(),adminControl.Delete);
 adminRouter.post('/update',body('name').not().isEmpty(),body('email').not().isEmpty(),body('password').not().isEmpty(),adminControl.Update);
 
-
-
 module.exports=adminRouter;
