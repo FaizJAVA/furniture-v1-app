@@ -13,7 +13,6 @@ const emiRouter=require('./route/emiroute');
 const path=require('path');
 const cors=require('cors');
 const app=express();
-const cors=require('cors');
 app.use(cors());
 
 const port=process.env.PORT|| 3000;
