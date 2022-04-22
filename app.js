@@ -11,6 +11,7 @@ const favouriteRouteImport=require('./route/favouriteroute');
 const orderRouter=require('./route/orderroute');
 const emiRouter=require('./route/emiroute');
 const path=require('path');
+const cors=require('cors');
 
 const port=process.env.PORT|| 3000;
 mongoose.connect('mongodb+srv://Faizaankhan:faiz123@furniture-v1-app-cluste.xufke.mongodb.net/myFirstDatabase?retryWrites=true&w=majority').then(result=>{
@@ -20,7 +21,7 @@ mongoose.connect('mongodb+srv://Faizaankhan:faiz123@furniture-v1-app-cluste.xufk
 });
 
 const app=express();
-const cors=require('cors');
+
 app.use(cors());
 
 app.use(bodyparser.urlencoded({extended:true}));
