@@ -4,6 +4,7 @@ const orderController=require("../controller/ordercontrol");
 
 router.post("/order",orderController.orderPlace);
 router.get("/view",orderController.viewOrders);
+router.post("/online",orderController.onlinepay);
 
 //particular user ordr History
 router.get("/userorderhistory/:id",orderController.userOrderHistory);
