@@ -19,6 +19,7 @@ productRouter.post('/edit',upload.single("pImage"),productControl.editProduct);
 productRouter.get('/comment',productControl.Comment);
 productRouter.get('/removecomment',productControl.RemoveComment);
 productRouter.get('/getproduct/:id',productControl.getProduct);
+productRouter.get('/productsbycat/:id',productControl.getProductByCat);
 
 module.exports=productRouter;
 

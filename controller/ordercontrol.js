@@ -1,5 +1,8 @@
 const req = require('express/lib/request');
 const Order=require('../model/ordermodel');
+const Cart=require('../model/cartmodel')
+const Razorpay = require('razorpay')
+var instance = new Razorpay({ key_id: 'rzp_test_QoaC9eX0D7fVFo', key_secret: 'HIEAPWoXrALXhWqD8mlaitYE' })
 
 exports.orderPlace=(request,response)=>{
     var today = new Date();
@@ -16,6 +19,17 @@ exports.orderPlace=(request,response)=>{
         orderPayment: request.body.orderPayment
     })  
     .then(result=>{
+        Cart.updateOne({_id:request.body.userId},
+            {
+                $set:{productId:[]}
+            }    
+        )
+        .then(result => {
+            return response.status(200).json({msg:"Your Order Is Placed... And Cart Is Empty...."});
+        })
+        .catch(err => {
+            return response.status(500).json(err);
+        });
         return response.status(200).json(result);
     })  
     .catch(err=>{
@@ -98,3 +112,29 @@ exports.orderStatus=(request,response)=>{
         return response.status(500).json(err);
     });
 };  
+
+
+
+
+exports.onlinepay=(request,response)=>{
+
+
+    console.log(request.body)
+    
+instance.orders.create({
+    amount: 50000,
+    currency: "INR",
+    receipt: "receipt#1",
+    notes: {
+      key1: "value3",
+      key2: "value2"
+    }
+  },(err,order)=>{
+      console.log(err)
+      console.log(order)
+      response.json(order)
+  })
+
+
+}
+

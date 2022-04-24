@@ -30,14 +30,21 @@ exports.View=(request,response)=>{
 }
 
 exports.Remove=(request,response)=>{
-    let a=request.body.uId;
-    let b=request.body.pId;
-    cartM.updateOne({userId:a},{$pullAll:[{productId:b}]}).then(result=>{
-        return response.status(200).json();
-    }).catch(err=>{
-        console.log(err);
-        return response.status(500).json({error:'Not removed'});
+    cartM.updateOne({userId:request.body.uId},
+        {
+            $pullAll:{
+                ProductId:[{_id:request.body.pId}]
+            }
+        }    
+    )
+    .then((result) => {
+        console.log(result);
+        return response.status(200).json(result);
     })
+    .catch((err) => {
+        console.log(err)
+        return response.status(500).json(err);
+    });
 }
 
 exports.Delete=(request,response)=>{

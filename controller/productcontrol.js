@@ -131,3 +131,13 @@ exports.getProduct=(request,response)=>{
         return response.status(500).json(err);
     });
 };
+
+exports.getProductByCat=(request,response)=>{
+    product.find({catId: request.params.id})
+    .then(result=>{
+        return response.status(200).json(result);
+    })
+    .catch(err=>{
+        return response.status(500).json(err);
+    });
+};

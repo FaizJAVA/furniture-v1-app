@@ -6,7 +6,7 @@ exports.Add=(request,response)=>{
     const cart=favouriteM.findOne({userId:uid});
 
     if(!cart){
-        cart=new cartM();
+        cart=new favouriteM();
         cart.userId=uid;
     }
     cart.productId.push(pid);
