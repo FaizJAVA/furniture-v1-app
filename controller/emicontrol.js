@@ -57,7 +57,7 @@ exports.adminHistoryEmi=(request,response)=>{
 
 //emi history for particular user 
 exports.userHistoryEmi=(request,response)=>{
-    Emi.find({emiMonth:0,userId:request.params.id})
+    Emi.find({emiMonth:0,userId:request.body.id})
     .populate("userId")
     .populate("products")
     .then(result=>{
@@ -70,7 +70,7 @@ exports.userHistoryEmi=(request,response)=>{
 
 //emi for user particular user
 exports.userEmi=(request,response)=>{
-    Emi.find({emiMonth:{$gt:0},userId:request.params.id})
+    Emi.find({emiMonth:{$gt:0},userId:request.body.id})
     .populate("userId")
     .populate("products")
     .then(result=>{

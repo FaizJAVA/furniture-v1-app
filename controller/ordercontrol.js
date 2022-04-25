@@ -1,5 +1,8 @@
 const req = require('express/lib/request');
 const Order=require('../model/ordermodel');
+const Cart=require('../model/cartmodel')
+const Razorpay = require('razorpay')
+var instance = new Razorpay({ key_id: 'rzp_test_QoaC9eX0D7fVFo', key_secret: 'HIEAPWoXrALXhWqD8mlaitYE' })
 
 exports.orderPlace=(request,response)=>{
     var today = new Date();
@@ -16,6 +19,17 @@ exports.orderPlace=(request,response)=>{
         orderPayment: request.body.orderPayment
     })  
     .then(result=>{
+        Cart.updateOne({_id:request.body.userId},
+            {
+                $set:{productId:[]}
+            }    
+        )
+        .then(result => {
+            return response.status(200).json({msg:"Your Order Is Placed... And Cart Is Empty...."});
+        })
+        .catch(err => {
+            return response.status(500).json(err);
+        });
         return response.status(200).json(result);
     })  
     .catch(err=>{
@@ -36,7 +50,7 @@ exports.viewOrders=(request,response)=>{
 
 //particular user orders History
 exports.userOrderHistory=(request,response)=>{
-    Order.find({orderStatus:"delivered",userId:request.params.id})
+    Order.find({orderStatus:"delivered",userId:request.body.id})
     .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
@@ -48,7 +62,7 @@ exports.userOrderHistory=(request,response)=>{
 
 //particular user orders Track
 exports.userOrderTrack=(request,response)=>{
-    Order.find({orderStatus:"ordered",userId:request.params.id})
+    Order.find({orderStatus:"ordered",userId:request.body.id})
     .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
@@ -83,7 +97,7 @@ exports.allOrdersHistory=(request,response)=>{
 };
 
 exports.orderStatus=(request,response)=>{
-    Order.updateOne({_id:request.params.orderId},
+    Order.updateOne({_id:request.body.orderId},
         {
             $set:
             {
@@ -92,9 +106,36 @@ exports.orderStatus=(request,response)=>{
         }    
     )
     .then(result=>{
+        console.log(result);
         return response.status(200).json(result);
     })
     .catch(err=>{
         return response.status(500).json(err);
     });
 };  
+
+
+
+
+exports.onlinepay=(request,response)=>{
+
+
+    console.log(request.body)
+    
+instance.orders.create({
+    amount: 50000,
+    currency: "INR",
+    receipt: "receipt#1",
+    notes: {
+      key1: "value3",
+      key2: "value2"
+    }
+  },(err,order)=>{
+      console.log(err)
+      console.log(order)
+      response.json(order)
+  })
+
+
+}
+

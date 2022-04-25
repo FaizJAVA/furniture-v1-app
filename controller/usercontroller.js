@@ -31,12 +31,14 @@ exports.SignIn=(request,response)=>{
     userM.findOne({uemail:a,upassword:b}).then(result=>{
         const payload={subject:result._id};
         const token=jwt.sign(payload,'jdshhfdvjksndfs');
-        return response.status(200).json({
-            result:result,
-            token:token
-        });
+        if(result)
+            return response.status(200).json({
+                result:result,
+                token:token
+            });
+        else
+            return response.status(200).json("Invalid password Or email");
     }).catch(err=>{
-        console.log(err);
         return response.status(500).json({error:'Not a valid user'});
     })
 }

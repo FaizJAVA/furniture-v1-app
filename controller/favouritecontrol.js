@@ -1,12 +1,12 @@
 const favouriteM=require('../model/favouritemodel');
 
-exports.Add=(request,response)=>{
+exports.Add=async (request,response)=>{
     let uid=request.body.uId;
     let pid=request.body.pId;
-    const cart=favouriteM.findOne({userId:uid});
+    let cart=await favouriteM.findOne({userId:uid});
 
     if(!cart){
-        cart=new cartM();
+        cart=new favouriteM();
         cart.userId=uid;
     }
     cart.productId.push(pid);

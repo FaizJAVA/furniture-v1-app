@@ -4,11 +4,12 @@ const orderController=require("../controller/ordercontrol");
 
 router.post("/order",orderController.orderPlace);
 router.get("/view",orderController.viewOrders);
+router.post("/online",orderController.onlinepay);
 
 //particular user ordr History
-router.get("/userorderhistory/:id",orderController.userOrderHistory);
+router.post("/userorderhistory",orderController.userOrderHistory);
 //particular user order tracking
-router.get("/userordertrack/:id",orderController.userOrderTrack);
+router.post("/userordertrack",orderController.userOrderTrack);
 
 //all orders for admin
 router.get("/allorders/",orderController.allOrders);
@@ -16,7 +17,7 @@ router.get("/allorders/",orderController.allOrders);
 router.get("/allOrderHistory/",orderController.allOrdersHistory);
 
 //update ordersStatus field for mange history
-router.post("/orderstatus/:orderId",orderController.orderStatus);
+router.post("/orderstatus",orderController.orderStatus);
 
 
 module.exports =router;

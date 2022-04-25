@@ -1,7 +1,9 @@
 const productM=require('../model/productmodel');
 const {validationResult}=require('express-validator');
 const product=require('../model/productmodel');
-const path = require("path");
+
+const path=require('path');
+
 const { Storage } = require('@google-cloud/storage');
 let bucketName = "gs://furniture-app-7e485.appspot.com"
 
@@ -124,6 +126,16 @@ exports.RemoveComment=(request,response)=>{
 }
 exports.getProduct=(request,response)=>{
     product.find({_id:request.params.id})
+    .then(result=>{
+        return response.status(200).json(result);
+    })
+    .catch(err=>{
+        return response.status(500).json(err);
+    });
+};
+
+exports.getProductByCat=(request,response)=>{
+    product.find({catId: request.params.id})
     .then(result=>{
         return response.status(200).json(result);
     })
