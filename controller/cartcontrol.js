@@ -21,7 +21,7 @@ exports.Add=async (request,response)=>{
 
 exports.View=(request,response)=>{
     let a=request.body.uId;
-    cartM.findOne({uesrId:a}).populate('productId').populate('userId').then(result=>{
+    cartM.findOne({userId:a}).populate('productId').populate('userId').then(result=>{
         return response.status(200).json(result);
     }).catch(error=>{
         console.log(error)
@@ -33,7 +33,7 @@ exports.Remove=(request,response)=>{
     cartM.updateOne({userId:request.body.uId},
         {
             $pullAll:{
-                ProductId:[{_id:request.body.pId}]
+                productId:[{_id:request.body.pId}]
             }
         }    
     )

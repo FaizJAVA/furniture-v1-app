@@ -9,8 +9,8 @@ router.get("/adminallemi",emiController.adminAllEmi);
 router.get("/adminhistoryemi",emiController.adminHistoryEmi);
 
 //emi for user
-router.get("/useremi/:id",emiController.userEmi);
-router.get("/userhistoryemi/:id",emiController.userHistoryEmi);
+router.post("/useremi",emiController.userEmi);
+router.post("/userhistoryemi",emiController.userHistoryEmi);
 
 //monthly emi
 router.post("/emiupdate/:id",emiController.emiUpdate);

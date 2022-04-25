@@ -1,7 +1,9 @@
 const productM=require('../model/productmodel');
 const {validationResult}=require('express-validator');
 const product=require('../model/productmodel');
-const path = require("path");
+
+const path=require('path');
+
 const { Storage } = require('@google-cloud/storage');
 let bucketName = "gs://furniture-app-7e485.appspot.com"
 
