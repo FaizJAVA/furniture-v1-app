@@ -50,7 +50,7 @@ exports.viewOrders=(request,response)=>{
 
 //particular user orders History
 exports.userOrderHistory=(request,response)=>{
-    Order.find({orderStatus:"delivered",userId:request.params.id})
+    Order.find({orderStatus:"delivered",userId:request.body.id})
     .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
@@ -62,7 +62,7 @@ exports.userOrderHistory=(request,response)=>{
 
 //particular user orders Track
 exports.userOrderTrack=(request,response)=>{
-    Order.find({orderStatus:"ordered",userId:request.params.id})
+    Order.find({orderStatus:"ordered",userId:request.body.id})
     .populate("productId").populate("userId")
     .then(result=>{
         return response.status(200).json(result);
@@ -97,7 +97,7 @@ exports.allOrdersHistory=(request,response)=>{
 };
 
 exports.orderStatus=(request,response)=>{
-    Order.updateOne({_id:request.params.orderId},
+    Order.updateOne({_id:request.body.orderId},
         {
             $set:
             {
@@ -106,6 +106,7 @@ exports.orderStatus=(request,response)=>{
         }    
     )
     .then(result=>{
+        console.log(result);
         return response.status(200).json(result);
     })
     .catch(err=>{
